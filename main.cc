@@ -104,7 +104,7 @@ int main() {
       
       parseLine(line, formulaStr);}
       else if(!cin.eof()){
-        cout<<"Error: invalid input"<<__LINE__<<endl;
+        cout<<"Error: invalid input"<<endl;
       }}
       else{
         break;
