@@ -8,14 +8,14 @@ int TseitinTransformer::transSubformula(TreeNode* root) {
   std::string content = root->getContent();
   if ((content == "+")||(content=="*")){
     int curID = varIdCounter++;
-    std::cout<<"INCREMENTING"<<__LINE__<<":"<<varIdCounter<<std::endl;
+    //std::cout<<"INCREMENTING"<<__LINE__<<":"<<varIdCounter<<std::endl;
     int leftID = 0;
     int rightID = 0;
     if((root->getLeftChild()->getContent() != "+") && (root->getLeftChild()->getContent() != "*") &&
         (root->getLeftChild()->getContent() != "-")){
         if(!(varIdTable.count(root->getLeftChild()->getContent())>0)){
           leftID = varIdCounter++;
-          std::cout<<"INCREMENTING"<<__LINE__<<":"<<varIdCounter<<std::endl;
+          //std::cout<<"INCREMENTING"<<__LINE__<<":"<<varIdCounter<<std::endl;
           varIdTable.insert(std::pair<std::string, int>(root->getLeftChild()->getContent(), leftID));
         }
         else{
@@ -24,14 +24,14 @@ int TseitinTransformer::transSubformula(TreeNode* root) {
     }
     else{
       leftID = varIdCounter;
-      //std::cout<<"INCREMENTING"<<__LINE__<<":"<<varIdCounter<<std::endl;
+      ////std::cout<<"INCREMENTING"<<__LINE__<<":"<<varIdCounter<<std::endl;
       transSubformula(root->getLeftChild());
     }
     if((root->getRightChild()->getContent() != "+") && (root->getRightChild()->getContent() != "*") &&
         (root->getRightChild()->getContent() != "-")){
         if(!(varIdTable.count(root->getRightChild()->getContent())>0)){
           rightID = varIdCounter++;
-          std::cout<<"INCREMENTING"<<__LINE__<<":"<<varIdCounter<<std::endl;
+          //std::cout<<"INCREMENTING"<<__LINE__<<":"<<varIdCounter<<std::endl;
           varIdTable.insert(std::pair<std::string, int>(root->getRightChild()->getContent(), rightID));
         }
         else{
@@ -40,29 +40,29 @@ int TseitinTransformer::transSubformula(TreeNode* root) {
     }
     else{
       rightID = varIdCounter;
-      //std::cout<<"INCREMENTING"<<__LINE__<<":"<<varIdCounter<<std::endl;
+      ////std::cout<<"INCREMENTING"<<__LINE__<<":"<<varIdCounter<<std::endl;
       transSubformula(root->getRightChild());
     }
     if (content =="+"){
-      std::cout<<curID<<leftID<<rightID<<std::endl;
+      //std::cout<<curID<<leftID<<rightID<<std::endl;
       addOrEq(curID, leftID, rightID);
     }
     else{
-      std::cout<<curID<<leftID<<rightID<<std::endl;
+      //std::cout<<curID<<leftID<<rightID<<std::endl;
       addAndEq(curID, leftID, rightID);
     }
     return 0;
   }
   else if (content == "-"){
-    std::cout<<"INSIDE NEG"<<std::endl;
+    //std::cout<<"INSIDE NEG"<<std::endl;
     int curID = varIdCounter++;
-    std::cout<<"INCREMENTING"<<__LINE__<<":"<<varIdCounter<<std::endl;
+    //std::cout<<"INCREMENTING"<<__LINE__<<":"<<varIdCounter<<std::endl;
     int leftID = 0;
     if((root->getLeftChild()->getContent() != "+") && (root->getLeftChild()->getContent() != "*") &&
         (root->getLeftChild()->getContent() != "-")){
         if(!(varIdTable.count(root->getLeftChild()->getContent())>0)){
           leftID = varIdCounter++;
-          std::cout<<"INCREMENTING"<<__LINE__<<":"<<varIdCounter<<std::endl;
+          //std::cout<<"INCREMENTING"<<__LINE__<<":"<<varIdCounter<<std::endl;
           varIdTable.insert(std::pair<std::string, int>(root->getLeftChild()->getContent(), leftID));
         }
         else{
@@ -72,7 +72,7 @@ int TseitinTransformer::transSubformula(TreeNode* root) {
     else{
       leftID = varIdCounter;
       //std::cout<<"INCREMENTING"<<__LINE__<<":"<<varIdCounter<<std::endl;
-      std::cout<<"calling REcursively"<<std::endl;
+      //std::cout<<"calling REcursively"<<std::endl;
       transSubformula(root->getLeftChild());
     }
     addNegEq(curID, leftID);

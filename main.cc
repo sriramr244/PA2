@@ -33,13 +33,13 @@ void print2DUtil(TreeNode* root, int space=0)
 void parseLine(const std::string &line, std::string &formulaStr) {
   formulaStr = line;
   if(formulaStr==""){
-    std::cout<<"Error: invalid input"<<__LINE__<<std::endl;
+    std::cout<<"Error: invalid input"<<std::endl;
     return;
   }
   else{
     formula_parser parse_form(formulaStr);
     if(!parse_form.tknzr_err){
-      std::cout<<"Error: invalid input"<<__LINE__<<std::endl;
+      std::cout<<"Error: invalid input"<<std::endl;
       return;
     }
     parser_tree out = parse_form.check_parser();
@@ -54,19 +54,19 @@ void parseLine(const std::string &line, std::string &formulaStr) {
       }*/
     }
     else{
-      std::cout<<"Error: invalid input"<<__LINE__<<std::endl;
+      std::cout<<"Error: invalid input"<<std::endl;
     }
     /*TreeNode* nnf_out = cvt_nnf(out.tree_ptr);
     cout<<"NNF Tree: "<<endl;
     print2DUtil(nnf_out, 0);*/
     TseitinTransformer transfer_TS(out.tree_ptr);
     std::vector<std::vector<int>> cnf = transfer_TS.transform();
-    for (int i = 0; i < cnf.size(); i++){
+    /*for (int i = 0; i < cnf.size(); i++){
       std::cout<<"new"<<std::endl;
       for (int j = 0; j < cnf[i].size(); j++) {
         std::cout << cnf[i][j] << std::endl;
       }
-    }
+    }*/
     bool SAT = satCallingMiniSat(cnf);
     if(SAT){
       std::cout<<"sat"<<std::endl;
