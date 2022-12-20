@@ -45,7 +45,7 @@ void parseLine(const std::string &line, std::string &formulaStr) {
     parser_tree out = parse_form.check_parser();
     //cout<<out.error<<endl;
     if(out.error){
-      print2DUtil(out.tree_ptr, 0);
+      //print2DUtil(out.tree_ptr, 0);
       /*try{
         cout<<(*(out.tree_ptr)).evaluate(parse_form.as_toks)<<endl;
       }
