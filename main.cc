@@ -8,6 +8,7 @@
 #include <vector>
 #include "Tree_to_nnf.h"
 #include "Tseitin_transform.h"
+#include "satSolver.h"
 
 bool formula();
 bool conjterm();
@@ -66,6 +67,14 @@ void parseLine(const std::string &line, std::string &formulaStr) {
         std::cout << cnf[i][j] << std::endl;
       }
     }
+    bool SAT = satCallingMiniSat(cnf);
+    if(SAT){
+      std::cout<<"sat"<<std::endl;
+    }
+    else{
+      std::cout<<"unsat"<<std::endl;
+    }
+    
     return;
   }
 }

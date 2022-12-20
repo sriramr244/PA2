@@ -16,7 +16,7 @@ include_directories(${CMAKE_SOURCE_DIR}/minisat)
 
 # create the main executable
 ## change .cpp files if needed
-add_executable(${PROJECT_NAME} main.cc Tseitin_transform.cc satSolver.cc parser.cc tokenizer.cc Tree_to_nnf.cc treeNode.cc)
+add_executable(${PROJECT_NAME} main.cc Tseitin_transform.cc satSolver.cc parser.cc tokenizer.cc Tree_to_nnf.cc treeNode.cc satSolver.cc)
 # link MiniSAT libraries
 target_link_libraries(${PROJECT_NAME} minisat-lib-static)
 
