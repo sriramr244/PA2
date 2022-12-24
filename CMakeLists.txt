@@ -1,12 +1,6 @@
 cmake_minimum_required(VERSION 2.8.12)
 
-project(pa2)
-
-if (EXISTS "${CMAKE_SOURCE_DIR}/minisat")
-  add_subdirectory(minisat)
-else()
-  message (FATAL_ERROR "MiniSat not found. Use `git clone https://github.com/agurfinkel/minisat` to check it out.")
-endif()
+project(bonus)
 
 # enable c++11 support
 set (CMAKE_CXX_FLAGS "-std=c++11 -Wall ${CMAKE_CXX_FLAGS}")
@@ -16,12 +10,12 @@ include_directories(${CMAKE_SOURCE_DIR}/minisat)
 
 # create the main executable
 ## change .cpp files if needed
-add_executable(${PROJECT_NAME} main.cc Tseitin_transform.cc satSolver.cc parser.cc tokenizer.cc Tree_to_nnf.cc treeNode.cc satSolver.cc)
+add_executable(${PROJECT_NAME} main.cc Tseitin_transform.cc satSolver.cc parser.cc tokenizer.cc Tree_to_nnf.cc treeNode.cc dpll.cc)
 # link MiniSAT libraries
 target_link_libraries(${PROJECT_NAME} minisat-lib-static)
 
 # create the executable for tests
-add_executable(tests test.cpp Tseitin_transform.cc satSolver.cc parser.cc tokenizer.cc Tree_to_nnf.cc treeNode.cc)
+add_executable(tests test.cpp Tseitin_transform.cc dpll.cc parser.cc tokenizer.cc Tree_to_nnf.cc treeNode.cc)
 # link MiniSAT libraries
 target_link_libraries(tests minisat-lib-static)
 

@@ -8,7 +8,7 @@
 #include <vector>
 #include "Tree_to_nnf.h"
 #include "Tseitin_transform.h"
-#include "satSolver.h"
+#include "dpll.h"
 
 bool formula();
 bool conjterm();
@@ -55,10 +55,11 @@ void parseLine(const std::string &line, std::string &formulaStr) {
     }
     else{
       std::cout<<"Error: invalid input"<<std::endl;
+      return;
     }
-    /*TreeNode* nnf_out = cvt_nnf(out.tree_ptr);
-    cout<<"NNF Tree: "<<endl;
-    print2DUtil(nnf_out, 0);*/
+    //TreeNode* nnf_out = cvt_nnf(out.tree_ptr);
+    //cout<<"NNF Tree: "<<endl;
+    //print2DUtil(nnf_out, 0);
     TseitinTransformer transfer_TS(out.tree_ptr);
     std::vector<std::vector<int>> cnf = transfer_TS.transform();
     /*for (int i = 0; i < cnf.size(); i++){
@@ -67,14 +68,9 @@ void parseLine(const std::string &line, std::string &formulaStr) {
         std::cout << cnf[i][j] << std::endl;
       }
     }*/
-    bool SAT = satCallingMiniSat(cnf);
-    if(SAT){
-      std::cout<<"sat"<<std::endl;
-    }
-    else{
-      std::cout<<"unsat"<<std::endl;
-    }
-    
+    //std::cout << "var_ID" <<transfer_TS.getVarNum() << std::endl;
+    DPLL new_solver(cnf, transfer_TS.getVarNum()-1);
+    std::cout<<new_solver.solve()<<std::endl;
     return;
   }
 }
@@ -115,5 +111,4 @@ int main() {
   }
     return 1;
 }
-
 
